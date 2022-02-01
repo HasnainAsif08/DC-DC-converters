@@ -1,0 +1,655 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[top=0.85in,left=2.75in,footskip=0.75in]{geometry}
+
+\usepackage{amsmath,amssymb}
+\usepackage{changepage}
+\usepackage[utf8x]{inputenc}
+\usepackage{textcomp,marvosym}
+\usepackage{cite}
+\usepackage{nameref,hyperref}
+\usepackage[right]{lineno}
+\usepackage{microtype}
+\DisableLigatures[f]{encoding = *, family = * }
+\usepackage[table]{xcolor}
+\usepackage{array}
+\usepackage{makecell}
+
+
+\newcolumntype{+}{!{\vrule width 2pt}}
+\newlength\savedwidth
+\newcommand\thickcline[1]{%
+  \noalign{\global\savedwidth\arrayrulewidth\global\arrayrulewidth 2pt}%
+  \cline{#1}%
+  \noalign{\vskip\arrayrulewidth}%
+  \noalign{\global\arrayrulewidth\savedwidth}%
+}
+
+\newcommand\thickhline{\noalign{\global\savedwidth\arrayrulewidth\global\arrayrulewidth 2pt}%
+\hline
+\noalign{\global\arrayrulewidth\savedwidth}}
+
+\raggedright
+\setlength{\parindent}{0.5cm}
+\textwidth 5.25in 
+\textheight 8.75in
+
+\usepackage[aboveskip=1pt,labelfont=bf,labelsep=period,justification=raggedright,singlelinecheck=off]{caption}
+\renewcommand{\figurename}{Fig}
+
+\bibliographystyle{plos2015}
+
+\makeatletter
+\renewcommand{\@biblabel}[1]{\quad#1.}
+\makeatother
+
+\usepackage{lastpage,fancyhdr,graphicx}
+\usepackage{epstopdf}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rfoot{\thepage/\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrule}{\hrule height 2pt \vspace{2mm}}
+\fancyheadoffset[L]{2.25in}
+\fancyfootoffset[L]{2.25in}
+\lfoot{\today}
+
+\newcommand{\lorem}{{\bf LOREM}}
+\newcommand{\ipsum}{{\bf IPSUM}}
+
+
+\begin{document}
+\vspace*{0.2in}
+
+\begin{flushleft}
+{\Large
+\textbf\newline{Interleaved boost integrated LLC resonant DC-DC converter for PV systems} % Please use "sentence case" for title and headings (capitalize only the first word in a title (or heading), the first word in a subtitle (or subheading), and any proper nouns).
+}
+\newline
+\\
+Muhammed Hasnain Asif\textsuperscript{1\Yinyang},
+Syed Abdul Rahman Kashif\textsuperscript{2\Yinyang},
+Noor-Ul-Ain\textsuperscript{3\ddag},
+Muhammad Salman Fakhar\textsuperscript{4\ddag},
+Akhtar Rasool\textsuperscript{5\ddag},
+
+\\
+\bigskip
+\textbf{1} Department of Electrical Engineering, University of Engineering and Technology, Lahore, 54890, Pakistan.
+%\\
+\textbf{2} Department of Electrical Engineering, University of Engineering and Technology, Lahore, 54890, Pakistan.
+%\\
+\textbf{3} Department of Electrical Engineering, University of Engineering and Technology, Lahore, 54890, Pakistan.
+%\\
+\textbf{4} Department of Electrical Engineering, University of Engineering and Technology, Lahore, 54890, Pakistan.
+%\\
+\textbf{5} Department of Electrical Engineering, Sharif College of Engineering and Technology, Lahore, 54000, Pakistan.
+\bigskip
+
+
+* hasnainasif11@gmail.com * abdulrahman@uet.edu.pk * noor-ul-ain@uet.edu.pk \\
+* salmanfakhar@uet.edu.pk * akhtar@sabanciuniv.edu 
+
+\end{flushleft}
+
+\section*{Abstract}
+The exhaustion of conventional energy resources due to increasing energy demand made research in the field of solar energy inevitable. Solar panels can be used in bulk supplies as well as residential consumers but due to insufficient output voltages, require interconnection with DC-DC voltage converters. To resolve this, different configurations of DC-DC converters have been utilised, each displaying some drawbacks hindering optimum performance.
+The traits required for a DC-DC voltage converter is high output voltage gain, low input current ripple, high efficiency and good voltage regulation. In this paper, a current fed, PWM driven, interleaved boost converter has been presented integrated with an LLC resonant tank and voltage quadrupler circuit. The proposed design has been simulated in PSim and gives optimum performance over wide input voltage range and varying output loads in comparison to the other topologies.
+
+
+\section*{Keywords}
+Direct current (DC), Electromagnetic interference (EMI), Maximum power point tracking (MPPT), Photovoltaic (PV), Pulse width modulation (PWM), Zero voltage switching (ZVS), Zero current switching (ZCS).
+
+\section*{Introduction}
+The electricity is among one of the fundamental necessities for life today considering the rapid increase of population in the world, industrialization, as well as increasing demand of energy with the passage of time. Because of increasing demand of electric power globally, consumption of fuel is increasing rapidly, hence there is a bend to exchange the fuel with renewable resources. Alternative energy has immense potential keeping in view of the geographic and environmental conditions of Pakistan in comparison with other energy sources. Since, the value of solar PV panels unit area is decreasing day by day as well as availability of the sunlight or daylight for major portion of the year makes solar power generation more feasible. All these factors are playing role throughout the world towards increased utilization of solar energy resources. PV panels give the output DC voltage ranging from 40 V to 60 V which are not suitable for local utilization in Pakistan which mostly require 220 V AC. For this purpose, DC to AC converters is utilized to meet the need of 220 V AC. Further the raise in voltage is also done with the help of such converters. Numerous types of DC-DC and DC-AC converters, readily available having different techniques for switching and ripple removal. However, these converters have higher losses because of the hard switching across primary switches. Moreover, EMI is a huge drawback of such converters. Today, inclination is towards the utilisation of wind and solar energy due to the scarcity of conventional fuels and their environmental effects. For the sustainable utilisation and optimal operation of renewable sources, many different technologies and associating devices have been used. The output from wind turbines is low and unstable. Therefore, there is a major interest in the solar power plants in present.The solar panels give lesser output voltages (up to 60 V) and for household applications, higher voltages (110 V or 220 V) are needed.
+Therefore, for increasing the output voltages of PV panels, step up PWM DC-DC converters are incorporated. High switching loss is countered because of hard switching operation involved in conventional DC-DC converters operated upon PWM. In order to minimise losses due to hard switching, soft switching methods are employed to achieve zero voltage switching (ZVS) and zero current switching (ZCS).
+
+
+\section*{Problems using DC-DC converters}
+There are numerous renewable resources but in recent years
+PV cell is the best renewable energy resource, as per reference [1]. However, the output voltage from PV cell is usually low so the solar panel output voltage needs to be increased. To enhance panel voltages, boost converters are employed as shown in Fig.1 in this section. However, in DC-DC boost converters due to reverse recovery of boost diode we have to face high switching losses and EMI loss. Hard switching is also a big problem in boost converters. Normally, to enhance the output voltage of PV panels, PWM DC-DC converters are employed as per reference [2]. MOSFETs at the primary side depict hard switching. Hard switching across the switches causes high switching loss and EMI as per reference [3]. High input ripple current is also a draw back of PWM converters. Therefore, the overall working efficiency for the generally used DC-DC converters
+is not very high. The requirement of high output voltage gain
+with high overall efficiency, low input ripple current and low
+switching loss is therefore not met by the conventional PWM DC-DC converters.
+\begin{figure}[!h]
+%    \centering
+%    \includegraphics[width=\linewidth]{2011.png}
+    \caption{\bf Boost Converter.}
+    \label{fig:my_label}
+\end{figure}
+
+This is represented by the transfer function in (1):
+\begin {equation}
+\centering
+G(s)  = \frac{V_{c}(s)}{d(s)}  = -\frac{V_{c}}{1-D}.\frac{(\frac{L}{R(1-D)^2}*s-1)}{\frac{LC}{(1-D)^2}*s^2 + \frac{L}{R(1-D)^2}*s+1}
+\label{eqn:3.17} 
+\end {equation}
+\section*{Different boost topologies}
+For eliminating such issues, various boost configurations are
+discussed in the coming sections. Two kinds of converters exist: isolated and non-isolated. Non-isolated converters are more efficient than the isolated converters due to the absence of transformer. Switching loss is a big problem in DC-DC converters which needs to be overcome for optimal performance of the suggested converter. By ensuring ZVS and ZCS, switching loss at the primary side switches can be minimised remarkably. In reference [4], a converter which has parallel connection on primary side and series connection on secondary side has been discussed which is used
+to achieve ZVS. Hence, the loss due to switching at the primary side switches is reduced. In reference [5] author has discussed a novel topology converter for audio amplifiers. In this proposed converter, there are skimpy stresses existing on the diodes at the secondary side. In reference [4] non-isolated DC-DC converters i.e., classical converters, modified converters, cascaded converters and interleaved converters have been discussed.
+
+\subsection*{Isolated DC-DC converters}
+During the recent time, LLC resonant converters started to
+become popular. These are isolated DC-DC converters in configuration. The LLC resonant converters comprise of an inductor and capacitor network also known as resonant tank. For moulding the wave form of the output of PV panel into a sinusoidal manner, resonant tank is used. Resonant converters have positive traits such as low EMI ,low stress on switches, soft switching ( ZVS, ZCS ).
+\subsubsection*{LLC resonant converters}
+For various utilities i.e., server power, fuel cells, battery charging applications and LED drive LLC resonant converters have been used effectively as per references [7,8]. LLC resonant converters provide a big advantage of soft switching across the primary switches. Due to lower inductance on primary side with the presence of resonant tank, resonant converters can maintain output voltages over a wide load range. Furthermore, LLC resonant circuits shape the square waveform into a sinusoidal waveform thereby reducing the complexity. However, incorporating LLC resonant tank results in reduction of output voltage gain. Author discussed several types of LLC resonant converters in different research papers such as half-bridge converter as per references [4], [8-10] which have been used for different applications. The performance of this converter is not efficient over a wide input voltage range. The primary side switches are switched to ON state with zero voltage level, the voltage quadrupler diodes are switched to OFF state with zero current level in resonant converters. Therefore, soft switching is fulfilled. Furthermore, sinusoidal output waveform also reduces EMI. In order to explain the fundamental concept of resonant converters, a flow chart of resonant converters has been depicted through Fig.2:
+% For figure citations, please use "Fig" instead of "Figure".
+% Place figure captions after the first paragraph in which they are cited.
+\begin{figure}[!h]
+%    \centering
+%   \includegraphics[width=\linewidth]{2300.png}
+\caption{\bf Flow Chart of Resonant Converter.}
+\label{fig1}
+\end{figure}
+
+Through soft switching, minimising the switching losses across primary switches has been discussed in various topologies. In reference [11], crooked half bridge topology has been discussed. In reference [12], active clamping converter has been discussed while in reference [13-14], phase shift PWM converters are explained by different authors
+The authors in reference [15-16] have discussed a new topology. In between two resonant converters connected in series, interleaved half-cycle network is employed. For the output voltage to withstand the stress of diodes of the rectifier, a full-wave rectifier comprising of diodes is incorporated on the secondary side. Considering that the PWM frequency ‘fs’ is less compared to the resonance frequency ‘fr’, the MOSFETs are going to be switched to ON condition at ZVS due to the resonance. The secondary diodes are going to be switched to OFF condition at ZCS in this topology. In reference [17], a resonant converter fed by current is explained. Within this topology, the switches operate under soft switching ZCS on a broad range of variable load.
+
+\subsection*{Non-isolated DC-DC Converters}
+In reference [18], the author discusses ‘MPPT’ topology. For the subject technique, a transformer is not required for isolation. In reference [19], a combined configuration is discussed by the author. High gain is produced and reduced current ripple at the input
+is produced. A capacitor which has a high value is connected between MOSFETs drain source terminals which is depicted in Fig.3 for fulfilling required switching mechanism. The operation of this topology is characterised by step up and step down modes explained as follows through (2)-(4):
+\begin {equation}
+\centering
+V_{low}  = D_{SD}*V_{C1} = D_{SD}*V_{C2}
+\label{eqn:3.17} 
+\end {equation}
+\begin {equation}
+\centering
+ V_{C1} = V_{C2} = 1/2 * V_{high} 
+\end {equation}
+\begin {equation}
+\centering
+VCR_{SD}  = \frac{V_{low}}{V_{high}} = \frac{D_{SD}}{2}  
+\end {equation}
+where DSD is the duty cycle for step down mode for power switches. $V_{CRSD}$ is the voltage conversion ratio during this mode of operation. For the step up mode, the deduction is as follows through eq (5)-(6):
+\begin {equation}
+\centering
+V_{high}  = V_{C1}+ V_{C2} 
+\end {equation}
+\begin {equation}
+\centering
+VCR_{SU}  = \frac{V_{high}}{V_{low}} = \frac{2}{1-D_{SU}}  
+\end {equation}
+where $D_{SU}$ is the duty cycle for step up mode for power switches. $VCR_{SD}$ is the voltage conversion ration for this mode.
+\begin{figure}[h]
+%    \centering
+ %   \includegraphics[width=\linewidth]{bdcc.png}
+    \caption{\bf Bi-directional DC-DC Converter.}
+    \label{fig:my_label}
+\end{figure}
+
+The author in reference [20] discusses an LLC converter which which incorporates high magnetising inductance of transformer. The author in reference [21] proposed a novel topology for wide voltage gain range. This topology works in half-bridge and full-bridge configurations. The author in reference [22] discusses fixed frequency PWM current-fed converter topology. The primary side switches are clamped to the bus voltages. High output voltage gain can be obtained through this topology. Full bridge LLC resonant circuit incorporated with boost converter circuit with interleaving is connected directly with switching unit. The author in reference [23] introduces a new technique in which Schottky diodes have been used. Schottky diodes act as a switching mechanism with MOS incorporated in it. The switching pattern is concurring with 180◦ phase shift. A Cool MOS and SiC Schottky diode comprise a switching cell. This topology reduces the losses by providing zero reverse recovery current. SiC diodes give high efficiency. In reference [24], the author proposes another unique converter which has four operating modes. In order to compare output voltage gain of this topology first harmonic approximation (FHA) is employed with the LLC resonant DC-DC converters.
+
+The author in reference [25] explains an transformer connected resonant technique. This topology has a magnetizing and leakage component for transformer inductance which is then utilised as the component for resonance. In reference [26], the author discusses another technique. Here ZVS for secondary side and secondary modulation ZCS for primary side ensures that voltage clamping is achieved. This topology compared to the active clamp converter is more efficient. For the same duty cycle, in active clamp topology, we can get the output voltage gain up to four times only. Author discusses another topology in reference [27]. The inductor current for this technique can be quantified using this technique. Author proposes another modulation technique in reference [28-29]. It is employed in bidirectional rectifiers which are current fed and are both in half and in full bridge type converters. By the use of this topology, turn OFF voltage spike across the primary side switches can be completely eradicated without any additional circuit. In reference [29] author discussed a circuit for which by using smaller duty cycle high output voltage gain can be achieved.
+
+\section*{IBI-LLC Resonant Converter}
+The best operating condition for the proposed IBI-LLC resonant DC-DC converter happens when duty cycle is 50\% as the circulating current is minimum, the input current is without any ripples and output voltage gain does not vary over changing load. The midpoint of total input voltage range gives the optimal operating point. Considering that a converter based on two phases, having interleaving and employing resonant tank, the efficient and optimal operation is done for broader input voltage band. Specially, the alternate sources i.e., photo-voltaic cells, fuel cells. For these sources, the intermediate area of operating range corresponds to their maximum power points. This makes it coherent with the the proposed converter operating area. Furthermore, for interconnection of proposed converter with alternate energy resources, closed loop control maybe employed for good dynamic response over varying input voltage and load.
+
+The  boost converter is integrated with LLC resonant tank. It is further integrated with voltage quadrupler rectifier circuit and is mainly used for PV applications. The combination which has been mentioned results into high output voltage gain. Input current ripple is mitigated using this topology. The switching loss is remarkably reduced by achieving ZVS during switching ON condition of primary MOSFETs and ZCS during switching OFF condition of secondary side diodes. The switching frequency ‘fs’ is constantly kept exactly the same as the resonant frequency ‘fr’ ensuring constant frequency gated signals. The inductances Lm, Lb1, Lb2 will have minimal effect over the output voltage gain behaviour due to PWM control. Therefore, the resonant component values can be maximised as per requirement to mitigate loss due to conduction. 
+
+In Fig.4, the combination of a boost converter and interleaving traits with LLC resonant portion is shown which gives us the proposed topology circuit. The pairs of switches S1, S3 and S2, S4 constitute the switching network. Inductor Lb1 is connected with the centre point of one phase for constituting one boost converter circuit while inductor Lb2 is connected with the centre point of
+other phase for constituting another boost converter circuit. These circuits work 180° out of phase with each other and perform interleaving operation. A resonating inductor Lr, magnetizing inductor Lm and resonating capacitor Cr have been combined to realise the LLC configuration. The LLC resonant tank has been connected with a transformer T and the voltage quadrupler rectifier circuit comprising of four diodes.
+
+\begin{figure}[h]
+%    \centering
+%    \includegraphics[width=\linewidth, height =5cm]{3011.png}
+    \caption{\bf Proposed IBI-LLC Resonant Converter.}
+    \label{fig:my_label}
+\end{figure}
+
+The switches (S1-S4) are being shared between interleaved boost circuit and LLC resonant tank. This benefits in reduced number of switches. The input voltage is increased to the bus voltage Vbus for this topology, which is supplied to the resonant portion constituted by LLC. The transformer ratio is n = n1 : n2. Where n1 denotes primary side turns and n2 denotes the secondary turns of transformer ’T’.
+
+This topology is comprised of three stages where first is MOSFET switching network which gives square wave AC output for DC input voltage. The proposed topology has soft switching. Zero voltage switching is achieved across primary switches. This helps in
+reduction of switching loss as well as reduction of stress on primary switches. The second part of this topology is LLC resonant tank. This part takes square wave at input and produces pure sinusoidal AC oscillations at resonant frequency. The transformer provides isolation as well as step-up provision for AC wave form. The third part is voltage quadrupler rectifier circuit which is used for conversion of the AC input into output DC voltage. Furthermore, voltage quadrupler rectifier circuit is incorporated to enhance the DC voltage at the output as per requirement Vo. This configuration is shown in Fig.4.
+
+\subsection*{Boost Section}
+Primary side switch pairs S1, S4 and S2, S3 together with inductors Lb1 and Lb2 respectively constitute converter circuit. There is a 180° phase shift between the two boost converters. The boost inductors (Lb1,Lb2) currents are represented by Ilb1, Ilb2 respectively. Their sum is represented as Ilbsum. The source is attached directly to the converter. The input current Iin is equal to the average current of the boost side inductors i.e., Ilbsum. This is deduced by assuming Ilb1 and Ilb2, the boost inductors currents share the same value of current. The inductors Lb1 and Lb1 of boost converter therefore share half of current at the primary Iin/2. The ripple current at the input has the value of $\Delta{i}_{Lb1}$ and $\Delta{i}_{Lb2}$. The ripple current of the sum of currents for boost inductors Ilbsum is hereby represented as $\Delta{i}_{Lbsum}$.
+
+\subsection*{Full-Bridge Soft Switching Network}
+Two main configurations have been used for implementation of LLC resonant tank. First one is half-bridge and the second one is full-bridge. To make selection of switching technique parameters of both these are compared to decide which one is feasible for switching purpose. In full-bridge circuit formation, the current will be half in comparison with half-bridge and the Irms will be one-fourth as compared to that of half bridge. Four switches S1, S2, S3 and S4 are used in a full-bridge while two switches S1 and S2 are used in half bridge so the conduction loss in half bridge will be twice as compared to full bridge. Full-bridge configuration is more feasible for applications requiring high primary current as compared to half-bridge. Hence, full-bridge circuit has been selected for this topology.
+
+\subsection*{LLC Resonant Tank}
+The main purpose of LLC resonant tank is to produce resonance frequency oscillations. This is done by producing pure sinusoidal AC voltage waveform. In addition to the resonant inductance Lr the magnetizing inductance Lm acts as an aiding component. This combination gives damping for the oscillations which allows smooth output.
+
+\subsection*{Voltage Quadrupler}
+As the name suggests, the voltage quadrupler rectifier comprises of four stages. Each stage is made up of a diode and a capacitor. Consequently, based on its four stages, it multiplies the input voltage to four times. It is pertinent to cater for the voltage drop that occurs across the four diodes in voltage quadrupler circuit for getting the accurate voltage at the output of voltage quadrupler circuit Vo. The proposed converter topology incorporates voltage quadrupler rectifier circuit as described by (7).
+    \begin {equation}
+\centering
+V_{o}= n*V_{in}
+\end {equation}
+
+\section*{Analysis and Results}
+\subsection*{Analysis}
+ The switches S1-S4 have been shared between the boost circuit comprising of two phases and interleaving with resonant part, total number of power switches are reduced. The input voltage Vin is stepped up to the bus voltage Vbus. This voltage is being fed to the LLC resonant tank for this IBI-LLC topology. The turns ratio for transformer ’T’ is n=n1:n2. The switching frequency ‘fs’ is maintained equal to the resonant frequency ‘fr’. The switching frequency ‘fs’ is constant as fixed frequency PWM is adopted as gate signals for primary switches of this particular converter topology. This modulation technique has been explained in Fig.5. For mitigation of the short circuit of any phase of the boost converter, dead time tdead is given between switches S1 and S3. These switches have the equal duty cycle ’D’ and are operating 180° opposite with each other. Contrarily, the switches S2 and S4 have the cycle ’1–D’, but also contain a 180° phase shift. The modulation technique explained above results in an AC square wave which is the resonant tank voltage represented as Utank. The resonant tank voltage Utank has duty cycle ’D’ if (’D’ is less than or equal to 50\%). The resonant tank voltage Utank has duty cycle ’1-D’ if (’D’ is greater than 50\%). The resonant tank voltage has the magnitude Vbus. The magnitude of Utank can be easily varied by changing the duty cycle ’D’ of primary switches S1 and S3. Therefore, this topology gives a smooth and stable wide output voltage gain range over full load.
+ 
+ \subsubsection*{Modes Of Operation}
+The eight working modes in which one working cycle for the suggested topology is completed is depicted in Fig.5.
+
+Mode-1 ($t_{0}$ - $t_{1}$): The primary switch $S_{4}$ is in conducting state already. At time $t_{0}$, the primary switch $S_{1}$ is turned ON. The resonant tank voltage $U_{tank}$ becomes equal to the bus voltage $V_{bus}$ at this instant. Because of the resonance between passive components $L_{r}$ and $C_{r}$, the resonant current $I_{r}$ has sinusoidal waveform. This current $I_{r}$ is higher than $I_{m}$. For this mode, the primary switches $S_{1}$ and $S_{4}$ are in conducting state simultaneously. However, the primary switches $S_{2}$ and $S_{3}$ are not conducting and thus clamped to bus voltage. Current flowing through secondary diodes $D_{2}$ and $D_{4}$ is mainly proportional to difference between $I_{r}$ and $I_{m}$. $L_{1}$ and $L_{2}$ are being discharged and charged respectively. The anti-parallel body diodes of primary side switches $S_{1}$ and $S_{4}$ are forward biased. The capacitors $C_{1}$ and $C_{4}$ on the primary side gradually discharge to attain zero voltage. The voltages across the $L_{b1}$ and $L_{b2}$ are given as in (8)-(10):
+\begin {equation}
+\centering
+V_{Lb1} = V_{in}
+\label{eqn:} 
+\end {equation}
+\begin {equation}
+\centering
+V_{Lb2} = V_{in} - V_{bus}
+\label{eqn:} 
+\end {equation}
+\begin {equation}
+\centering
+V_{b} = V_{bus} 
+\label{eqn:} 
+\end {equation}
+The current $I_{L2}$ linearly increases through $L_{b2}$ while the current $I_{L1}$ linearly decreases through $L_{b1}$, Hence as shown in (11)-(12):
+\begin {equation}
+\centering
+V_{in}  = L_{b1}\frac{di_{L1}}{dt}  = \frac{di_{L1}}{dt} = \frac{V_{in}}{L_{b1}}
+\label{eqn:3.17} 
+\end {equation}
+and
+\begin {equation}
+\centering
+ \frac{di_{L1,2}}{dt} = \frac{V_{in}-V_{bus}}{L_{b1,2}}
+\label{eqn:3.17} 
+\end {equation}
+
+On the transformer secondary side, the capacitors $C_{2}$ and $C_{4}$ store the energy while the diodes $D_{2}$ and $D_{4}$ are in conducting state in this interval. The transformer primary side voltage is represented as (13):
+
+\begin {equation}
+\centering
+{V_{Lm}}= \frac{V_{0}}{4}
+\label{eqn:3.17} 
+\end {equation}
+
+The resonant frequency '$f_{r}$' for the resonant inductor $L_{r}$ and resonant capacitor $C_{r}$ is calculated as (14):
+
+\begin {equation}
+\centering
+{f_{r}}= \frac{1}{2\pi \sqrt{L_{r}C_{r}}}
+\label{eqn:3.17} 
+\end {equation}
+Here switching frequency of PWM operation `$f_{s}$' is kept equal to resonant frequency `$f_{r}$' hence the gain parameters are minimally affected by change in passive components. Compared to pulse frequency modulation (PFM), stable operation is ensured as well as circulating currents are avoided.
+
+Mode-2 ($t_{1}$ - $t_{2}$): When mode-1 ends, $L_{r}$, $L_{m}$  and $C_{r}$ start resonating. Here, the diodes $D_{2}$ and $D_{4}$ are now turned OFF. The free-wheeling diodes $D_{1}$ and $D_{4}$ of primary side switches $S_{1}$ and $S_{4}$ are reverse biased. The current $i_{L1}$ through the inductor $L_{1}$ increases linearly while the current $i_{L2}$ through the inductor $L_{2}$ decreases linearly. The inductor $L_{r}$, primary side switches $S_{1}$ and $S_{4}$ are being used for free-wheeling operation. When the time instant $t_{1}$ is reached, the primary switch $S_{4}$ is still in conducting state while the primary switch $S_{1}$ is turned OFF. Due to the virtue of $i_{Lr}$ and $i_{Lb1}$, the capacitors connected across primary switches switches $S_{1}$ and $S_{2}$ continue to charge and discharge respectively during this time interval. The anti-parallel diode of primary switch $S_{2}$ goes into conducting state when as the voltage of capacitor connected across primary switch $S_{2}$ decreases to zero voltage. Contrarily, the voltage of primary switch $S_{1}$ rises to the bus voltage. The anti-parallel diode connected across switch primary switch $S_{2}$ becomes forward biased and is in conducting state. However, the primary switch $S_{1}$ is has a fixed voltage equal to the bus voltage. The switching of primary switch $S_{2}$ is therefore done on zero voltage switching ZVS. The resonant frequency for $C_{r}$, $L_{r}$ and $L_{m}$ is calculated as (15): 
+
+\begin {equation}
+\centering
+{w_{r}}= \frac{1}{2\pi \sqrt({L_{r}+L_{m})*C_{r}}}
+\label{eqn:3.17} 
+\end {equation}
+
+
+The resonant current $I_{Lr}$ is same as the magnetizing current $I_{Lm}$ at the start of this mode. Due to the same value of $I_{Lm}$ and $I_{Lr}$, the transformer secondary side current is zero. Consequently, ZCS is achieved for the secondary diodes $D_{2}$ and $D_{4}$. During this mode, $L_{r}$, $L_{m}$, and $C_{r}$ are contributing towards resonance. Since there is no current on transformer secondary side, supply is not exchanged between the load and the source. Hence, the load will be driven by the stored energy in the capacitors. 
+
+Mode-3 ($t_{2}$ - $t_{3}$):  The primary switches $S_{1}$ and $S_{4}$ achieve ZVS while turning OFF while, the primary side capacitors $C_{1}$ and $C_{4}$ release the stored energy linearly at the time instant $t_{2}$ during this mode of operation. This is shown in (16)-(17):
+
+\begin {equation}
+\centering
+ \frac{dV_{C1}}{dt} = \frac{i_{L2}-i_{Lr}}{2*C}
+\label{eqn:3.17} 
+\end {equation}
+
+and
+
+\begin {equation}
+\centering
+ \frac{dV_{C4}}{dt} = -\frac{i_{Lr}-i_{L1}}{2*C}
+\label{eqn:3.17} 
+\end {equation}
+
+The voltage on the transformer primary side is given by (18). Furthermore, the secondary diodes $D_{1}$ and $D_{3}$  of the voltage quadrupler rectifier circuit are now forward biased.
+
+\begin {equation}
+\centering
+ V_{Lm} = -\frac{n_{Vo}}{4}
+\label{eqn:3.17} 
+\end {equation}
+The switching operation of primary side switches $S_{1}$ and $S_{4}$ is finished during this mode of operation of this topology. The comparison shows that in this mode, the transformer secondary side current is not zero. This is due to the fact, magnetizing current is higher than the resonant current. The output capacitors will release energy through the connected load while the diodes $D_{1}$ and $D_{3}$ will be in forward biased state.
+
+Mode-4 ($t_{2}$ - $t_{3}$): For the proposed topology, this mode operation commences at the time instant $t_{3}$. At this time instant, resonant current $I_{Lr}$ passes through the anti-parallel body diodes of primary side switches $S_{1}$ and $S_{4}$. The current reduces in a sinusoidal behaviour as the voltage at the LLC resonant tank is -$V_{in}$. The transformer primary side voltage is -$nV_{o}$/4 since the the voltage quadrupler rectifier diodes $D_{1}$ and $D_{3}$ are now in forward biased state. The magnetizing current flowing through $L_{m}$ decreases in a linear manner. The supply is exchanged between the source side and the load side during mode-4 of operation of the proposed topology. The operation of this mode will stop at the time instant $t_{4}$ if resonant current $I_{r}$ becomes zero. 
+Waveforms of different parameters of the proposed circuit in different modes as per the above discussion are elaborated in Fig.5:
+\begin{figure}[h]
+  %  \centering
+ %   \includegraphics[width=\linewidth, height=7.0cm]{4022.png}
+    \caption{\bf Steady State Waveforms of Proposed Circuit.}
+    \label{fig:my_label}
+\end{figure}
+
+\subsubsection*{Gain Anaysis}
+The sections called interleaved boost converter circuit and a full bridge LLC resonant tank constitute the proposed topology. For the easy gain analysis, these two parts can be de-coupled by the bus capacitor.  
+
+The gain formula for the boost circuit is given in (19):
+\begin {equation}
+\centering
+ M_{boost} = \frac{V{bus}}{V_{in}} 
+\label{eqn:3.17} 
+\end {equation}
+
+$V_{bus}$ is the voltage across bus capacitor $C_{bus}$, $V_{in}$ refers to the input voltage, the duty cycle of PWM is denoted by D.
+
+The gain for LLC circuit is given in (20):
+
+\begin {equation}
+\centering
+ M_{LLC} = \frac{V{o}}{V_{bus}} = \frac{8}{n} * \frac{k} \sqrt{ {[1+k-\frac{1}{f_{n}^{2}}]^2 +Q^2k^2(1-\frac{1}{f_{n}^2})^2}}}
+\label{eqn:3.17} 
+\end {equation}
+
+$M_{v}$ represents the overall gain of converter and is mathematically shown in (21)-(22):
+
+\begin {equation}
+\centering
+ M_{v} = M_{boost} * M_{LLC} 
+\label{eqn:3.17} 
+\end {equation}
+
+\begin {equation}
+\centering
+ M_{v} = \frac{1}{1-D} = \frac{8}{n} * \frac{k} \sqrt{ {[1+k-\frac{1}{f_{n}^{2}}]^2 +Q^2k^2(1-\frac{1}{f_{n}^2})^2}}}
+\label{eqn:3.17} 
+\end {equation}
+
+
+where
+\item \hspace{10mm} $V_{o}$ = Output Voltage
+
+\item \hspace{10mm} K =  $L_{m}$/$L_{r}$ 
+
+\item \hspace{10mm} Q_{} = \frac{\sqrt{L_{r}C_{r}}}{R_{ac}} 
+
+\item \hspace{10mm} R_{ac} =  \frac{n^2}{4\pi^2} * R_{o} 
+
+\item \hspace{10mm} n_{} =  \frac{N_{p}}{N_{s}}
+
+\item \hspace{10mm} f_{n} = \frac{f_{s}}{f_{r}}
+
+\item \hspace{10mm} {f_{r}}= \frac{1}{2\pi \sqrt{L_{r}C_{r}}}
+
+\subsection*{Simulation and Results}
+The proposed schematic has been simulated using PSim software to analyze the results of the proposed topology as shown in Fig.6. PWM with fixed frequency control has been used for driving the switches of the boost circuit. The values of the parameters are as follows: 
+
+\begin{itemize}
+  \item Boost Inductors, $L_{b1}$ = $L_{b2}$ = 300 uH .
+  \item Resonant Capacitor, $C_{r}$ = 250 nF.
+  \item Resonant Inductor, $L_{c}$ = 10 uH.
+  \item Magnetizing Inductor, $L_{m}$ = 300 uH.
+  \item Transformer T/R = 1:1.
+  \item Bus Capacitor, $C_{bus}$ = 47 uF.
+  \item Input Capacitor, $C_{in}$ = 100 uF.
+  \item Input Voltage, $V_{in}$ = 120 V - 160 V.
+  \item Output Voltage, $V_{out}$ = 1269 V - 1690 V.
+\end{itemize}
+
+ \subsubsection*{Simulation on PSim}
+\begin{figure}[h]
+    \centering
+%    \includegraphics[width=\linewidth, height=7cm]{01.png}
+    \caption{\bf Circuit Diagram of Proposed Topology in PSim.}
+    \label{fig:my_label}
+\end{figure}
+The simulated circuit is shown in Fig.6.
+\subsubsection*{Results on PSim}
+The proposed circuit has been simulated on PSim. These simulations after complete troubleshooting provided various results regarding soft switching based upon zero current switching (ZCS) and zero voltage switching (ZVS), ripple factor, output voltage $V_{o}$ and other important parameters required to comprehensively analyze the proposed schematic.
+
+For understanding the behavior of this circuit at various voltage levels, different input voltage is applied to this circuit and its tank currents, output voltage, tank voltage, resonant current and boost inductor currents are observed. 
+
+In the Fig.7, $V_{tank}$, resonant current, boost inductor currents for input voltage $V_{in}$ = 120V are shown. For said input voltage, output voltage is 1269 V while, $U_{tank}$ is almost equal to 175 V because of the $C_{bus}$ charging and discharging cycle. With the increase in input voltage $V_{in}$, the output voltage $V_{o}$ has consequently also increased up to nearly ten times. Here the important factor is that the VQ rectifier circuit on the secondary of the transformer helps in increasing the DC output by not only rectifying the AC to DC but also increasing its voltage level. Here, Duty cycle: D = 0.5. 
+\begin{figure}[h]
+       \caption{\bf Different Circuit Parameters at $V_{in}$ = 120 V.}
+    \label{fig:my_label}
+\end{figure}
+
+An important aspect which is to be obtained as an objective is is zero voltage switching (ZVS) and zero current switching (ZCS) based soft switching. These parameters are described and plotted in Fig.8 with output current of Io = 3.7A (125\% ) of nominal load For ZVS the switches are needed to be operated at zero voltage level in order to get soft switching.
+
+Therefore, the voltages of the MOSFET are plotted upon the primary resonant current and the switching of the switches is achieved at zero voltage level. Similarly, ZCS is achieved to avoid the losses against output diodes and to avoid switching losses and . For this purpose, the voltage across the quadrupler output diodes is plotted upon secondary current at different loading positions. It is quite clear from Fig.8 that the switching of MOSFETs is being done at zero primary resonant current hence zero voltage switching is achieved. While in the lower portion of the figure the switching of output diodes is being done at zero secondary current value which is zero current switching (ZCS). With the increase in load the primary resonant current enhances and also the output voltage of the circuit reduces in proportion. However, voltage across switches is the same. At high current Io = 3.7 A the ZVS and ZCS are slightly out of the shape.
+
+\begin{figure}[!h]
+%    \centering
+ %   \includegraphics[width=\linewidth]{6.png}
+\caption{\bf ZVS and ZCS at $I_{o}$ = 3.7 A.}
+\label{fig:fig}
+\end{figure}
+
+In Fig.9, relationship between $V_{cr}$ and $I_{lr}$,  $I_{r}$ and $I_{m}$ has been presented for $I_{o}$ = 3.7 A. From Fig.9, the relationship between $V_{cr}$ and $I_{lr}$ is presented while in lower portion of the Fig.9, the relationship between $I_{m}$ and $I_{r}$ is presented. 
+
+\begin{figure}[!h]
+%    \centering    
+%    \includegraphics[width=\linewidth, height=5cm]{4300.png}
+    \caption{\bf Relationship Between $V_{cr}$ and $I_{lr}$ , $I_{r}$ and $I_{m}$ at the Load Current $I_{o}$ = 3.7 A.}
+    \label{fig:Figure 4.8}
+\end{figure}
+
+From Fig.9, the phase displacement of 90 degrees can be observed. The relationship between $V_{CR}$ and $I_{LR}$ shows that as the load current increases, the voltage across the capacitor increases while current through the inductor changes slightly towards higher side. Similarly, as the load current increases, magnetizing current increases while resonant current does not increase to that extent. In fact, the resonant inductor current $I_{LR}$ remains almost constant.
+
+In the last part of the simulations $V_{in}$, $V_{out}$ and $V_{tank}$ have been plotted for different load values. Furthermore, output load and efficiency are also plotted. In Fig.10, $V_{in}$, $V_{out}$ and $V_{tank}$ as well as output load and efficiency are presented for load current $I_{o}$ = 3.7 A. 
+
+It is quite clear that with the increase in load current the output voltage are reduced. The spike in tank voltage is also observed at 3.7 A because of sudden deviation from ZVS as described earlier. Similarly, the efficiency of the circuit also reduces at higher load values. However, for the power rating of up to 4.5 kW the efficiency, output voltage and tank voltage are quite stabilized and maintained.
+
+\begin{figure}[!h] 
+%    \centering    
+%    \includegraphics[width=\linewidth, height=5cm]{4600.png}
+    \caption{\bf $V_{in}$, $V_{out}$ and $V_{tank}$, Efficiency and Load Current Plots at $I_{o}$ = 3.7 A.}
+    \label{fig:Figure 4.13}
+\end{figure}
+
+In order to visualise input ripple current calculation for boost inductors, $I_{lb1}$, $I_{lb2}$, $I_{lbsum}$, \Delta $I_{lb1,2}$ and percentage ripple current have also been plotted. In Fig.11, these parameters are presented for load current $I_{o}$ = 3.7 A.
+Here, It can be clearly seen that ripple current of individual boost inductors is nearly 10\% at $I_{o}$ = 2.2 A. 
+
+Further as the $I_{o}$ increases to 2.95 A and 3.7 A \% ripple current becomes lower with load. Generally input ripple current has been taken as 25-30\% of input current at low loads. As the load keeps increasing, \% ripple current decreases further. Owing to the interleaving of the boost inductors, ripple current is minimised to ideally zero at duty cycle = 0.5. 
+\begin{figure}[!h] 
+%    \centering    
+%    \includegraphics[width=\linewidth, height=5cm]{4900.png}
+    \caption{\bf $I_{lb1}$, $I_{lb2}$, $I_{lbsum}$, \Delta $I_{lb1,2}$ and \% ripple plotted at $I_{o}$ = 3.7 A}
+    \label{fig:Figure 4.13}
+\end{figure}
+
+This is an immense advantage of using this topology compared to other techniques as shown in Fig.11.
+\section*{Performance of Proposed Converter}
+\label{sec:guidelines}
+Since the beginning, a topology has been presented which has lower losses of switching through achieving ZVS and ZCS.  For that purpose, the literature review of the various topologies has been presented and its advantages and disadvantages have been analyzed. After comprehensive study of the scenarios this interleaved boost converter with quadrupler topology is presented and later on developed. The suggested configuration is simulated through PSim and its results are thoroughly presented.  
+Further the aim and important objective of the model presented was the achievement of zero voltage switching and zero current switching which is presented at different load level and it is comprehensively explained and presented. From those graphs it is quite clear that zero voltage switching and zero current switching is definitely achieved. However, at high load value a slight deviation from ZVS and ZCS is observed.
+\subsection*{Soft Switching}
+A desired parameter mentioned at the beginning was to achieve soft switching of primary and secondary switches in this converter topology. It reduces switching losses that occur at the switches. Conventional DC-DC Converters incur switching losses due to hard switching at primary and secondary switches. Here, the voltage of MOSFETs and resonant currents are plotted to visualise the zero voltage crossing (ZVS). Furthermore, secondary diode voltage and secondary currents have been plotted to visualise zero current crossing (ZCS) through Fig.8.
+
+It is evident that the suggested circuit ensures soft switching at multiple load conditions. With the increase in load, the ZVS and ZCS characteristics incur some distortions. For the loads $I_{o}$ =2.2 A, 2.95 A and 3.7 A, as shown in the simulation results, soft switching is achieved. 
+
+\subsection*{High Voltage Gain and Efficiency}
+It is mentioned here that the important aspect described and simulated is the correlation between input voltage, tank voltage, output voltage and load current as well as the relationship between efficiency and the load current. With the increase in load current the voltage at the output decreases while tank voltage remains the same because of the constant bus voltage. At the load current of 3.7 A the output voltage and the tank voltage change at slightly higher level because of the above-described deviation from ZVS and ZCS. Further, the efficiency also varies with the load and decreases slightly. However, efficiency maintained itself till the sufficient amount of power supply $\geq 4500W$.
+
+In this way the objective of high efficiency $\geq 91$ \%, low losses and high gain range with input voltage $V_{in}$ = 120 V - 160 V is achieved. Here, the important factor is that the duty cycle of primary side switches is 0.5 or 50\% and PWM technique is implemented for controlling the switching of the MOSFETs. It is also mentioned that this schematic is an open loop type scheme.
+
+It can be seen by the results of the simulations Fig.10 that the proposed topology is presented which has lower losses of switching through achieving ZVS and ZCS, having high efficiency $\geq 90$ \%, smooth output voltage and high gain $\geq 10$ times with less complications.
+
+\subsection*{Low Input Ripple Current}
+Another objective mentioned at the beginning  was to achieve low input ripple current. Referring to Fig.11, it is evident that the input ripple current of individual boost inductors $L_{b1}$ and $L_{b2}$ is $\leq$ 10\% at initial low loads. Generally for boost converters, ripple current at low loads is broadly taken as 25\% - 35\%.
+Currents of boost inductors $I_{Lb1}$ and $I_{Lb2}$ are complementary to eachother. Not only is the input ripple current lower. Due to interleaving operation of the two boost inductor branches and PWM fixed frequency operation, the ripple current is minimised and we get a ripple free current at the input at duty cycle D = 0.5.
+
+\section*{Comparison}
+In addition to the advantages explained above, the stress on power switches is much lesser as compared to other topologies. Owing to the fixed frequency PWM operation, voltage gain hardly depends on the values of any passive components. Voltage gain and output characteristics are much more stable, complications in design like transformer size due to frequency variation are avoided. Furthermore, sizes of passive components are considerably smaller. In the table shown in Table 1, different aspects of this converter have been compared to other topologies showing how it succeeds all the others.
+% Place tables after the first paragraph in which they are cited.
+\begin{table}[!ht]
+\begin{adjustwidth}{-2.25in}{0in} % Comment out/remove adjustwidth environment if table fits in text column.
+\centering
+\caption{
+{\bf Comparison of Different Topologies.}}
+\begin{tabular}{|l+l|l|l|l|l|}
+\hline
+\multicolumn{1}{|l|}{\bf Sr.No.} & \multicolumn{1}{|l|}{\bf Toplogies} & \multicolumn{1}{|l|}{\makecell{ Full-Bridge  \\ LLC Converter }} & \multicolumn{1}{|l|}{\makecell{ BC Half-Bridge  \\ LLC Converter }} & \multicolumn{1}{|l|}{\makecell{ IBC Half-Bridge  \\ LLC Converter }} & \multicolumn{1}{|l|}{\makecell{ Proposed IBI LLC \\ VQ Converter }} \\ \thickhline
+$1$ & No. of switches & 4 & 3 & 6 & 4 \\ \hline
+$2$ & No. of inductors & 1 & 2 & 3 & 3 \\ \hline
+$3$ & No. of diodes & 2 & 3 & 4 & 4 \\ \hline
+$4$ & Input current ripple & Large & Moderate & Small & Small \\ \hline
+$5$ & Input capacitor & Bulky & Medium & Small & Small \\ \hline
+$6$ & Bus capacitor & ---- & Bulky & Small & Small \\ \hline
+$7$ & Soft switching & {\makecell{ Primary switches: ZVS \\ Auxiliary switches: ZCS}} & {\makecell{ Boost stage: \\hard switching \\LLC: ZVS, ZCS}} & {\makecell{ Boost stage: \\hard switching \\LLC: ZVS, ZCS}} & {\makecell{ Primary switches: ZVS \\ Auxiliary switches: ZCS}} \\ \hline
+$8$ & Modulation & PFM & {\makecell{ Boost stage: \\PWM \\LLC: Unregulated}} & {\makecell{ Boost stage: \\PWM \\LLC: PFM}} & PWM \\ \hline
+$9$ & Gain range & Narrow & Wide & Wide & Wide \\ \hline
+\end{tabular}
+%\begin{flushleft} Table notes Phasellus venenatis, tortor nec vestibulum mattis, massa tortor interdum felis, nec pellentesque metus tortor nec nisl. Ut ornare mauris tellus, vel dapibus arcu suscipit sed.
+%\end{flushleft}
+\label{table1}
+\end{adjustwidth}
+\end{table}
+
+\section*{Conclusion}
+The output gain of the designed IBI-LLC Resonant DC-DC converter is high $\geq 10 \%.$ and stable for a broad input voltage range.
+The interleaving operation of the input boost inductors $L_{b1}$ and $L_{b2}$ increases the current carrying capacity and significantly reduces conduction losses.
+Furthermore the input ripple current due to interleaving is minimum. The ripple factor of individual boost inductors keeps decreasing further as load is increased. ZVS at the primary switches and ZCS at the secondary side diodes ensures soft switching and remarkably reduces the switching and EMI losses further increasing the overall efficiency of the converter. 
+
+Fixed frequency PWM operation is used due to which gain dependence on passive components is minimised, efficiency is maintained even when load varies and circulating currents are mitigated as well. In the light of the above cited facts, it can be concluded that the presented IBI-LLC Resonant DC-DC converter is a much better candidate for applications of PV cells requiring high voltage and power due to its efficiency and higher output voltage gain.
+
+\begin{thebibliography}{10}
+
+\bibitem{bib1}
+EPIA, European P. I. A. 
+\newblock {{G}lobal Market Outlook for Photovoltaics 2014-2018. Retrieved from http://www.solarpowereurope.org/.
+  functions}.
+
+\bibitem{bib2}
+Beiranvand, R., Rashidian, B., Zolghadri, M. R., & Alavi, S. M. H.
+\newblock A design procedure for optimizing the LLC resonant converter as a wide output range voltage source. IEEE Transactions on Power Electronics.
+\newblock (2012) 27(8), 3749–3763.https://doi.org/10.1109/TPEL.2012.2187801
+
+\bibitem{bib3}
+Cacciato, M., Consoli, A., & Crisafulli, V. 
+\newblock {{A} high voltage gain DC/DC converter for energy harvesting in single module photovoltaic applications.
+\newblock IEEE International Symposium on Industrial Electronics, 550–555.(2012) https://doi.org/10.1109/ISIE.2010.5637663.}
+
+\bibitem{bib4}
+Kim, C. E., Moon, G. W., & Han, S. K.  
+\newblock Voltage doubler rectified boost-integrated half bridge (VDRBHB) converter for digital car audio amplifiers. 
+\newblock IEEE Transactions on Power Electronics, (2007), 22(6), 2321–2330. https://doi.org/10.1109/TPEL.2007.904222
+
+\bibitem{bib5}
+Kishor, G., Harshavardhini, D., & Dhana Lakshmi, E. 
+\newblock Comparison of isolated and non-isolated resonant boost converter.
+\newblock International Journal of Control Theory and Applications, 2015, 8(1), 288–298.
+
+\bibitem{bib6}
+Choi, H. (n.d.). 
+\newblock Analysis and Design of LLC Resonant Converter with Integrated Transformer.
+\newblock (I), 1630–1635.
+
+\bibitem{bib7}
+Das, P., Laan, B., Mousavi, S. a., & Moschopoulos, G.
+\newblock A Non-Isolated Bidirectional ZVS-PWM Active Clamped DC & amp; amp; x2013; DC Converter. 
+\newblock IEEE Transactions on Power Electronics,2009, 24(2), 553–558. https://doi.org/10.1109/TPEL.2008.2006897.
+
+\bibitem{bib8}
+Freitas, A., Antunes, F., Mineiro, E., Lima, A., Daher, S., & Ximenes, S. 
+\newblock High gain DC-DC converter applied to photovoltaic system with new proposed to MPPT search. 
+\newblock IEEE Euro Con 2013, (July), 1081–1085. https://doi.org/10.1109/EUROCON.2013.6625115.
+
+\bibitem{bib9}
+Ho, C. N. M., Breuninger, H., Pettersson, S., Escobar, G., Serpa, L. A., & Coccia, A. 
+\newblock Practical design and implementation procedure of an interleaved boost converter using SiC diodes for PV applications. 
+\newblock IEEE Transactions on Power Electronics, 2002, 27(6), 2835–2845. https://doi.org/10.1109/TPEL.2011.2178269.
+
+\bibitem{bib10}
+Hu, H., Fang, X., Chen, F., Shen, Z. J., & Batarseh, I. 
+\newblock A modified high-efficiency LLC converter with two transformers for wide input-voltage range applications.  
+\newblock IEEE Transactions on Power Electronics, 2013, 28(4), 1946–1960. https://doi.org/10.1109/TPEL.2012.2201959.
+
+\bibitem{bib11}
+Krishnaswami, H. 
+\newblock Photovoltaic microinverter using single-stage isolated high-frequency link series resonant topology. 
+\newblock IEEE Energy Conversion Congress and Exposition: Energy Conversion Innovation for a Clean Energy Future, ECCE 2011, Proceedings, 1(1), 495–500. https://doi.org/10.1109/ECCE.2011.6063810.
+
+\bibitem{bib12}
+Lee, I. O., & Moon, G. W. (2014). 
+\newblock The k -Q Analysis for an LLC Series Resonant Converter. 
+\newblock IEEE Transactions on Power Electronics,2014, 29(1), 13–16. https://doi.org/10.1109/TPEL.2013.2255106 Proceedings, 1(1).
+
+\bibitem{bib13}
+Liang, Z., Guo, R., Wang, G., & Huang, A. 
+\newblock ). A new wide input range high efficiency photovoltaic inverter. 
+\newblock IEEE Energy Conversion Congress and Exposition, ECCE 2010 - Proceedings, 2937–2943. https://doi.org/10.1109/ECCE.2010.5618217.
+
+\bibitem{bib14}
+Iqbal, S. (n.d.). 
+\newblock Interleaved LLC Resonant Converter with Integrated Dual Transformer for PV Power Systems,  
+\newblock 1-6.
+
+\bibitem{bib15}
+Iqbal, S., & Engineering, E. 
+\newblock Double LLC Resonant Tanks Based DC-DC Converter with Integrated Dual Transformers for PV Power Systems. 
+\newblock 2016.
+
+\bibitem{bib16}
+Lin, B. R., & Dong, J. Y. 
+\newblock ZVS Resonant Converter with Parallel-Series Transformer Connection.
+\newblock IEEE Transactions on Industrial Electronics,2011, 58(7), 2972–2979. https://doi.org/10.1109/TIE.2010.2077612.
+
+\bibitem{bib17}
+Lin, B. R., & Huang, C. L.  
+\newblock Analysis and implementation of zero voltage switching integrated buck-flyback converter. 
+\newblock International Review of Electrical Engineering,2011, 6(7), 2846–2852. https://doi.org/10.1049/iet-pel.
+
+\bibitem{bib18}
+Lin, B. R., & Shih, H. Y. L.  
+\newblock ZVS converter with parallel connection in primary side and series connection in secondary side.
+\newblock IEEE Transactions on Industrial Electronics,2011, 58(4), 1251–1258. https://doi.org/10.1109/TIE.2010.2042422.
+
+\bibitem{bib19}
+Lin, B. R., & Wu, S. F.  
+\newblock ZVS resonant converter with series-connected transformers. 
+\newblock IEEE Transactions on Industrial Electronics,2011, 58(8), 3547–3554. https://doi.org/10.1109/TIE.2010.2089946.
+
+\bibitem{bib20}
+Nachiket Chaudhary, S., & Elangovan, D. 
+\newblock  High Gain, Naturally Clamped Dc to Dc Converter for X-ray Application. 
+\newblock International Conference on Computation of Power, Energy, Information and Communication, ICCPEIC 2016, 587–592. https://doi.org/10.1109/ICCPEIC.2016.7557298.
+
+\bibitem{bib21}
+Orietti, E., Mattavelli, P., Spiazzi, G., Adragna, C., & Gattavari, G. 
+\newblock  Two-phase interleaved LLC resonant converter with current-controlled inductor.
+\newblock Brazilian Power Electronics Conference, COBEP, 2009, 298–304. https://doi.org/10.1109/COBEP.2009.5347671.
+
+\bibitem{bib22}
+Prasanna, U. R., & Rathore, A. K. 
+\newblock  Novel soft-switching snubberless current-fed half-bridge front-end converter-based PV inverter. 
+\newblock Conference Proceedings - IEEE Applied Power Electronics Conference and Exposition - APEC,2013, 706–713. https://doi.org/10.1109/APEC.2013.6520287.
+
+\bibitem{bib23}
+Rathore, A. K., & Prasanna, U. R. 
+\newblock  Analysis, Design, and Experimental Results of Novel Snubberless Bidirectional Naturally Clamped Converter for Fuel Cell Vehicles.  
+\newblock IEEE Transactions on Industrial Electronics,2013, 60(10), 4482–4491. https://doi.org/10.1109/TIE.2012.2213563. 
+
+\bibitem{bib24}
+Reis, F. E. U., Torrico-Bascopé, R. P., & Costa, M. V. S. 
+\newblock   LQR control with integral action applied to a high gain step-Up DC-DC converter. 
+\newblock COBEP 2011 - 11th Brazilian Power Electronics Conference, 256–261. https://doi.org/10.1109/COBEP.2011.6085262.
+
+\bibitem{bib25}
+Sun, X., Shen, Y., Zhu, Y., & Guo, X. 
+\newblock   Interleaved Boost Integrated LLC Resonant Converter with Fixed-Frequency PWM Control for Renewable Energy Generation Applications.
+\newblock 2014, 8993(c). https://doi.org/10.1109/TPEL.2014.2358453.
+
+\bibitem{bib26}
+Tech, V., Arulmathy, A., Saranya, V., & Yugapriya, S. 
+\newblock   High Voltage Gain Soft Switching Converter for Solar Energy AC and DC.
+\newblock 2017, 326–332.
+
+\bibitem{bib27}
+Xuewei, P., & Rathore, A. K. 
+\newblock  Novel bidirectional snubberless naturally commutated soft-switching current-fed full-bridge isolated DC/DC converter for fuel cell vehicles. 
+\newblock IEEE Transactions on Industrial Electronics,2014, 61(5), 2307–2315. https://doi.org/10.1109/TIE.2013.2271599.
+
+\bibitem{bib28}
+Yi, K. H., Kim, B. C., & Moon, G. W. 
+\newblock  A simple and novel two phase interleaved LLC series resonant converter employing a phase of the resonant capacitor. 
+\newblock IEEE Energy Conversion Congress and Exposition, ECCE 2009, 2(2), 754–757. https://doi.org/10.1109/ECCE.2009.5316482.
+
+\bibitem{bib29}
+Yoon, K. H., Noh, Y. J., Phum, S., Meas, S., Jang, S. H., & Kim, E. S. 
+\newblock  LLC resonant converter with wide input voltage and load range at fixed switching frequency. Conference Proceedings. 
+\newblock IEEE Applied Power Electronics Conference and Exposition - APEC, 1338–1342. https://doi.org/10.1109/APEC.2012.6165993.
+
+\end{thebibliography}
+
+
+
+\end{document}
+
